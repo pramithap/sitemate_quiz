@@ -27,10 +27,11 @@ class IssuesController {
             this.items[issueIndex] = { ...this.items[issueIndex], ...updatedItem };
             res.json(this.items[issueIndex]);
         } else {
-            res.status(404).send('Issue not found');
+            res.status(404).send('data not found!!!');
         }
     }
     
+    //delete
     deleteIssue(req, res) {
         const id = parseInt(req.params.id, 10);
         this.items = this.items.filter(item => item.id !== id);

@@ -7,16 +7,14 @@ function App() {
   const [form, setForm] = useState({ id: '', title: '', description: '' });
 
   useEffect(() => {
-
-    // Fetch issues from the server when the component mounts
     const fetchIssues = async () => {
       try {
-        console.log("fetch issues called ");
+        console.log("fetching issues.... ");
         const data = await Api.getIssues();
         console.log(data);
         setIssues(data);
       } catch (error) {
-        console.error('Error fetching issues:', error.message);
+        console.error('Error:', error.message);
       }
     };
 
@@ -31,16 +29,17 @@ function App() {
     e.preventDefault();
     try {
       if (form.id) {
-        console.error('Adding data');
+        console.error('Updating the issue...');
         const updatedIssue = await Api.updateIssue(form.id, form);
         setIssues(issues.map(issue => issue.id === parseInt(form.id) ? updatedIssue : issue));
       } else {
         const newIssue = await Api.addIssue(form);
+        console.error('adding the issue...' + newIssue);
         setIssues([...issues, newIssue]);
       }
       setForm({ id: '', title: '', description: '' });
     } catch (error) {
-      console.error('Error submitting form:', error.message);
+      console.error('Error in form submission:', error.message);
     }
   };
 
